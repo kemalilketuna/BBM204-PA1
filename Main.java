@@ -31,10 +31,21 @@ class Main {
         List<Integer> inputList = Arrays.stream(inputs).boxed().collect(Collectors.toList());
         Collections.shuffle(inputList);
         inputs = inputList.stream().mapToInt(i -> i).toArray();
+        int[] inputsCopy = Arrays.copyOf(inputs, inputs.length);
+
+
+        // run the tests        
         SortTest sortTest = new SortTest(inputs);
-
-        // run the tests
         sortTest.runTests();
-    }
 
+        // sleep for 15 seconds
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        SearchTest searchTest = new SearchTest(inputsCopy);
+        searchTest.runTests();
+    }
 }

@@ -1,2 +1,5 @@
 *.zip
 *.class
+*.png
+keep.txt
+```

@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.function.Function;
 
-
 class MergeSort{
     public static int[] sort(int[] arr) {
         if (arr.length > 1) {
@@ -103,7 +102,7 @@ public class SortTest {
 
         double amount;
         int test_count;
-        for (int i = 0; i < n_values.length; i++) {
+        for(int i = 0; i < n_values.length; i++) {
             test_count = 0;
             amount = 0;
             if(n_values[i] > arr.length){
@@ -146,7 +145,7 @@ public class SortTest {
         System.out.println("Counting Sort: " + Arrays.toString(results[2]));
         System.out.println();
         Chart.saveChart("Time Spent in Sorting Process with Sorted Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results);
-        
+
         arr = Arrays.stream(arr).boxed().sorted((a, b) -> b - a).mapToInt(i -> i).toArray();
         results[0] = testAlgortihm(MergeSort::sort);
         results[1] = testAlgortihm(InsertionSort::sort);
