@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.function.Function;
 
+
 class MergeSort{
     public static int[] sort(int[] arr) {
         if (arr.length > 1) {
@@ -65,36 +66,27 @@ class InsertionSort{
 
 class CountingSort{
     public static int[] sort(int[] arr) {
-        int n = arr.length;
-        int[] output = new int[n];
-        int max = arr[0];
-        for (int i = 1; i < n; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-            }
-        }
-        int[] count = new int[max + 1];
-        for (int i = 0; i < max; ++i) {
-            count[i] = 0;
-        }
-        for (int i = 0; i < n; ++i) {
-            count[arr[i]]++;
-        }
-        for (int i = 1; i <= max; ++i) {
-            count[i] += count[i - 1];
-        }
-        for (int i = n - 1; i >= 0; i--) {
-            output[count[arr[i]] - 1] = arr[i];
-            count[arr[i]]--;
-        }
-        for (int i = 0; i < n; i++) {
-            arr[i] = output[i];
-        }
-        return arr;
+        int k = Arrays.stream(arr).max().getAsInt();
+        int[] count = new int[k+1];
+        Arrays.fill(count, 0);
+        int size = arr.length;
+        int[] output = new int[size];
 
-        // // only sort arr
-        // Arrays.sort(arr);
-        // return arr;
+        for(int i=0,j; i<size; i++){
+            j = arr[i];
+            count[j] += 1;
+            }
+
+        for(int i=1; i<k+1; i++){
+            count[i] += count[i-1];
+            }
+
+        for(int i=size-1,j; i>=0; i--){
+            j = arr[i];
+            count[j] --;
+            output[count[j]] = arr[i];
+        }
+        return output;
     }
 }
 
@@ -109,27 +101,25 @@ public class SortTest {
     public double[] testAlgortihm(Function<int[], int[]> algorithm) {
         double[] test_results = new double[n_values.length];
 
-        int duration = 0;
+        double amount;
         int test_count;
         for (int i = 0; i < n_values.length; i++) {
             test_count = 0;
+            amount = 0;
             if(n_values[i] > arr.length){
                 break;
             }
 
-            int[] test_arr = new int[n_values[i]];
-            for (int j = 0; j < n_values[i]; j++) {
-                test_arr[j] = arr[j];
-            }
-
             while(test_count < 10){
+                int[] test_arr = Arrays.copyOfRange(arr, 0, n_values[i]);
                 long startTime = System.nanoTime();
                 algorithm.apply(test_arr);
                 long endTime = System.nanoTime();
-                duration += (endTime - startTime) / 1000000;
+                double duration = (endTime - startTime) / 1000000.0;
+                amount += duration;
                 test_count++;
             }
-            test_results[i] = duration / 10;
+            test_results[i] = amount / 10;
         }
         return test_results;
     }
@@ -139,6 +129,33 @@ public class SortTest {
         results[0] = testAlgortihm(MergeSort::sort);
         results[1] = testAlgortihm(InsertionSort::sort);
         results[2] = testAlgortihm(CountingSort::sort);
-        Chart.saveChart("Time Spent in Sorting Process", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results);
+        System.out.println("Time Spent in Sorting Process with Random Data");
+        System.out.println("Merge Sort: " + Arrays.toString(results[0]));
+        System.out.println("Insertion Sort: " + Arrays.toString(results[1]));
+        System.out.println("Counting Sort: " + Arrays.toString(results[2]));
+        System.out.println();
+        Chart.saveChart("Time Spent in Sorting Process with Random Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results);
+
+        arr = Arrays.stream(arr).sorted().toArray();
+        results[0] = testAlgortihm(MergeSort::sort);
+        results[1] = testAlgortihm(InsertionSort::sort);
+        results[2] = testAlgortihm(CountingSort::sort);
+        System.out.println("Time Spent in Sorting Process with Sorted Data");
+        System.out.println("Merge Sort: " + Arrays.toString(results[0]));
+        System.out.println("Insertion Sort: " + Arrays.toString(results[1]));
+        System.out.println("Counting Sort: " + Arrays.toString(results[2]));
+        System.out.println();
+        Chart.saveChart("Time Spent in Sorting Process with Sorted Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results);
+        
+        arr = Arrays.stream(arr).boxed().sorted((a, b) -> b - a).mapToInt(i -> i).toArray();
+        results[0] = testAlgortihm(MergeSort::sort);
+        results[1] = testAlgortihm(InsertionSort::sort);
+        results[2] = testAlgortihm(CountingSort::sort);
+        System.out.println("Time Spent in Sorting Process with Reversed Sorted Data");
+        System.out.println("Merge Sort: " + Arrays.toString(results[0]));
+        System.out.println("Insertion Sort: " + Arrays.toString(results[1]));
+        System.out.println("Counting Sort: " + Arrays.toString(results[2]));
+        System.out.println();
+        Chart.saveChart("Time Spent in Sorting Process with Reversed Sorted Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results);
     }
 }

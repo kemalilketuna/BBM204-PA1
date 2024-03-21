@@ -22,13 +22,19 @@ class CSVReader {
 class Main {
 
     public static void main(String args[]) throws IOException {
+        // redirect output to a file
+        PrintStream fileOut = new PrintStream(new File("keep.txt"));
+        System.setOut(fileOut);
+
+        // read the input file and shuffle the data
         int[] inputs = CSVReader.readCSV(args[0]);
         List<Integer> inputList = Arrays.stream(inputs).boxed().collect(Collectors.toList());
         Collections.shuffle(inputList);
-        
         inputs = inputList.stream().mapToInt(i -> i).toArray();
-        SortTest test = new SortTest(inputs);
-        test.runTests();
+        SortTest sortTest = new SortTest(inputs);
+
+        // run the tests
+        sortTest.runTests();
     }
 
 }
