@@ -33,7 +33,6 @@ class Main {
         inputs = inputList.stream().mapToInt(i -> i).toArray();
         int[] inputsCopy = Arrays.copyOf(inputs, inputs.length);
 
-
         // run the tests        
         SortTest sortTest = new SortTest(inputs);
         sortTest.runTests();

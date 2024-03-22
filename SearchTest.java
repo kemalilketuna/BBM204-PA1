@@ -77,6 +77,6 @@ public class SearchTest {
         System.out.println("Linear Search in Random Data" + Arrays.toString(results[0]));
         System.out.println("Linear Search in Sorted Data" + Arrays.toString(results[1]));
         System.out.println("Binary Search in Sorted Data" + Arrays.toString(results[2]));
-        Chart.saveChart("Time Spent for Searching", new String[]{"Linear Search in Random Data", "Linear Search in Sorted Data", "Binary Search in Sorted Data"}, n_values, results);
+        Chart.saveChart("Time Spent for Searching", new String[]{"Linear Search in Random Data", "Linear Search in Sorted Data", "Binary Search in Sorted Data"}, n_values, results, true);
     }
 }

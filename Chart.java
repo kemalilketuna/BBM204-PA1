@@ -8,10 +8,10 @@ import org.knowm.xchart.XYSeries;
 import org.knowm.xchart.style.Styler;
 
 public class Chart {
-    public static void saveChart(String title, String[] series, int[] xAxis, double[][] yAxis) throws IOException {
+    public static void saveChart(String title, String[] series, int[] xAxis, double[][] yAxis, Boolean isNanosecond) throws IOException {
         // Create Chart
         XYChart chart = new XYChartBuilder().width(800).height(600).title(title)
-                .yAxisTitle("Time in Milliseconds").xAxisTitle("Input Size").build();
+                .yAxisTitle("Time in " + (isNanosecond ? "Nanoseconds" : "Milliseconds")).xAxisTitle("Input Size").build();
 
         // Convert x axis to double[]
         double[] doubleX = Arrays.stream(xAxis).asDoubleStream().toArray();

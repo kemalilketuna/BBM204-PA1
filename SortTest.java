@@ -90,7 +90,7 @@ class CountingSort{
 }
 
 public class SortTest {
-    private int[] n_values = {500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000, 250000};
+    private static int[] n_values = {500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000, 250000};
     int[] arr;
 
     public SortTest(int[] arr) {
@@ -133,7 +133,7 @@ public class SortTest {
         System.out.println("Insertion Sort: " + Arrays.toString(results[1]));
         System.out.println("Counting Sort: " + Arrays.toString(results[2]));
         System.out.println();
-        Chart.saveChart("Time Spent in Sorting Process with Random Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results);
+        Chart.saveChart("Time Spent in Sorting Process with Random Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results, false);
 
         arr = Arrays.stream(arr).sorted().toArray();
         results[0] = testAlgortihm(MergeSort::sort);
@@ -144,7 +144,7 @@ public class SortTest {
         System.out.println("Insertion Sort: " + Arrays.toString(results[1]));
         System.out.println("Counting Sort: " + Arrays.toString(results[2]));
         System.out.println();
-        Chart.saveChart("Time Spent in Sorting Process with Sorted Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results);
+        Chart.saveChart("Time Spent in Sorting Process with Sorted Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results, false);
 
         arr = Arrays.stream(arr).boxed().sorted((a, b) -> b - a).mapToInt(i -> i).toArray();
         results[0] = testAlgortihm(MergeSort::sort);
@@ -155,6 +155,6 @@ public class SortTest {
         System.out.println("Insertion Sort: " + Arrays.toString(results[1]));
         System.out.println("Counting Sort: " + Arrays.toString(results[2]));
         System.out.println();
-        Chart.saveChart("Time Spent in Sorting Process with Reversed Sorted Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results);
+        Chart.saveChart("Time Spent in Sorting Process with Reversed Sorted Data", new String[]{"Merge Sort", "Insertion Sort", "Counting Sort"}, n_values, results, false);
     }
 }
